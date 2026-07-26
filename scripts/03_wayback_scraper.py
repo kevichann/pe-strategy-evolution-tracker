@@ -14,7 +14,7 @@ INPUT_FILE = "filtered_investors.csv"
 OUTPUT_FILE = "PE_Strategy_Historical_Evolution.csv"
 
 # Target years for historical snapshots
-TARGET_YEARS = [2005, 2010, 2015, 2020, 2024]
+TARGET_YEARS = [2015, 2017, 2019, 2021, 2023, 2025]
 
 # Strategy keywords to trace across snapshots
 STRATEGY_KEYWORDS = [
