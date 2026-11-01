@@ -11,7 +11,7 @@ import requests
 
 # --- Configuration ---
 INPUT_FILE = "filtered_investors.csv"
-OUTPUT_FILE = "PE_Strategy_Historical_Evolution.csv"
+OUTPUT_FILE = "PE_Strategy_Historical_Wayback.csv"
 
 # Target years for historical snapshots
 TARGET_YEARS = [2015, 2017, 2019, 2021, 2023, 2025]
