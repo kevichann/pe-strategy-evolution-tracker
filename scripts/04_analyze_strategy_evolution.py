@@ -33,7 +33,12 @@ def main():
     except FileNotFoundError:
         print(f"Error: Could not find '{INPUT_FILE}'. Run 03_wayback_scraper.py first.")
         return
+# Filter out missing-snapshot indicators or empty text
+df = df.dropna(subset=['strategy_text'])
+error_keywords = ['wayback error', 'site unavailable', 'dns error', '404 not found']
 
+for kw in error_keywords:
+    df = df[~df['strategy_text'].str.lower().str.contains(kw, na=False)]
     trends_df = calculate_keyword_frequencies(df)
     trends_df.to_csv(OUTPUT_FILE, index=False)
     print(f"Analysis complete. Aggregated trends saved to '{OUTPUT_FILE}'.")
