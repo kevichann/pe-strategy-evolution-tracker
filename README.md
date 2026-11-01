@@ -1,194 +1,433 @@
-# pe-strategy-evolution-tracker
-
-pip install -r requirements.txt
-
-# Private Equity Strategy Evolution Tracker
-
-**Computational Research Project | The Wharton School, University of Pennsylvania**
+# Wharton Computational Research: Private Equity Strategies and O*NET Occupational Data
 
 **Student Researcher:** Kevin Chan  
-**Research Mentors:** Dr. Claudine Gartenberg and Elaine Pak  
-**Research Period:** October 2025 – February 2026
+**School:** The Haverford School | Class of 2027  
+**Research Institution:** The Wharton School, University of Pennsylvania  
+**Research Mentors:** Professor Claudine Gartenberg and Elaine Pak  
+**Research Areas:** Applied Mathematics, Computational Analysis, Organizational Strategy, and Data Science
 
 ---
 
-## 1. Project Overview
+## 1. Research Overview
 
-**How do private equity firms describe their investment strategies, and how do those descriptions evolve over time?**
+My research at Wharton involved two related computational projects:
 
-Private equity (PE) firms pursue different approaches to creating value, including financial restructuring, operational improvement, and strategic transformation. Yet studying how their investment philosophies evolve is challenging because firms update their websites, replace older strategy descriptions, and use inconsistent terminology.
+1. **Occupational data analysis:** Developing an O*NET-based scoring approach for research on collaboration and skills in job descriptions.
+2. **Private equity strategy evolution:** Building Python tools to collect investment strategy descriptions from private equity firm websites and investigate changes in their language over time.
 
-I developed a Python-based computational workflow to identify active private equity firms, extract publicly stated investment strategies, and examine historical website information using the Internet Archive's Wayback Machine.
+Although the projects addressed different research questions, both involved a challenge I became increasingly interested in: **How can messy, real-world information be turned into meaningful quantitative measurements?**
 
-The objective was to transform unstructured website content into structured data that could support systematic comparisons of PE firms' strategic emphasis across different periods.
+I first worked with Professor Claudine Gartenberg on job-description research. She later introduced me to Elaine Pak, whose research examines how private equity ownership and investment strategies influence organizational decisions.
 
-This project was conducted with guidance from researchers at the Wharton School, University of Pennsylvania.
+My contributions focused on computational implementation, data preparation, and building tools for empirical research.
 
----
-
-## 2. Research Context and Mentorship
-
-My primary research mentor was **Dr. Claudine Gartenberg**, Associate Professor of Management at Wharton. Her research examines corporate strategy, ownership structures, organizational purpose, and firm performance.
-
-After working with Professor Gartenberg on an earlier research project examining collaboration in job descriptions, she introduced me to **Elaine Pak**, a Wharton Management PhD candidate researching private equity ownership and corporate strategy.
-
-Elaine's research investigates how private equity owners implement distinct strategic approaches across portfolio companies.
-
-Her job market paper, *Owning With Style: How Corporate Owners Shape Firm Strategy*, examines how private equity owners redeploy employees across portfolio firms to implement their investment strategies, or strategic "playbooks."
-
-A component of her research involves measuring PE owners' strategic emphasis using historical website information. This is closely related to the data collection and analysis challenges addressed in my project.
-
-My work supported this broader research effort through computational data collection, screening, and historical comparison. I worked independently on assigned technical tasks while receiving research direction and feedback from my mentors.
+The primary focus of this repository is the private equity strategy project. It also includes code from my earlier O*NET work.
 
 ---
 
-## 3. Research Objectives
+## 2. Project A: O*NET Occupational Data and Job-Description Research
 
-My project focused on four questions:
+**Mentor:** Professor Claudine Gartenberg  
+**Research period:** Summer 2025
 
-1. How can active private equity firms with accessible websites be identified systematically?
-2. How can publicly stated investment strategies be extracted from unstructured website content?
-3. How can historical website snapshots be used to compare strategy descriptions over time?
-4. What limitations arise when using public-facing investment language as a measure of strategic emphasis?
+### Research Question
 
-The broader goal was to investigate how computational methods can help researchers construct quantitative measures from qualitative business information.
+How can information about occupational skills and requirements be organized into comparable quantitative measures for studying collaboration in job descriptions?
 
----
+Job descriptions use different terminology to describe responsibilities, capabilities, and workplace activities. Even when two positions involve similar work, their descriptions may be difficult to compare directly.
 
-## 4. Computational Methodology
+O*NET provides standardized occupational classifications and measurements that can help researchers investigate these differences.
 
-### Step 1: Algorithmic Firm Screening
+### My Contribution
 
-The first challenge was identifying private equity firms suitable for historical analysis.
+I worked on an O*NET-based occupational scoring task and developed Python code to process occupational data.
 
-I developed an algorithmic screening workflow to identify active firms with accessible websites.
+The published data-processing module, `src/data_processor.py`, performs several operations:
 
-This initial screening helped distinguish usable firm records from those lacking the website information required for further investigation.
+- Reads occupation titles and standardized O*NET-SOC occupation codes.
+- Imports occupational datasets containing skills, abilities, and work activities.
+- Groups occupational attributes using their O*NET element identifiers.
+- Extracts Importance (IM) and Level (LV) ratings.
+- Preserves information about the number of observations (`N`).
+- Combines occupational attributes into a structured dataset.
+- Exports the resulting data for further analysis.
 
-**Technical focus:** Algorithmic filtering, firm identification, and data preparation.
+The objective was to make occupational measurements easier to use when comparing job requirements.
 
-### Step 2: Automated Web Scraping
+### Technical Approach
 
-Private equity firms typically publish investment philosophies and strategic priorities through website pages describing their investment approach.
+The algorithm uses O*NET-SOC codes to connect occupational information across datasets.
 
-I used Python web scraping techniques to retrieve publicly stated investment strategies.
+For each occupation, the program identifies relevant elements, collects their ratings, and organizes the results into columns containing:
 
-The workflow involved collecting website content, parsing HTML, and extracting relevant strategy descriptions.
+- Element ID
+- Element name
+- Importance rating
+- Level rating
+- Number of observations
 
-The resulting text could then be organized into a more structured format for analysis.
+Pandas is used for data manipulation, grouping, and merging.
 
-**Technical focus:** HTTP requests, HTML parsing, text extraction, and structured data processing.
+The code preserves occupations even when some attributes are unavailable, allowing missing measurements to be represented explicitly.
 
-### Step 3: Historical Website Retrieval
+### Scope of the Published Code
 
-A company's present-day website does not necessarily preserve how its investment approach was described in previous years.
+The file `src/data_processor.py` documents the occupational data-processing component of my O*NET work.
 
-To investigate historical changes, I used the Internet Archive's Wayback Machine to retrieve earlier website snapshots.
+The currently published module organizes source ratings but does not include a separate complete job-description-to-occupation matching workflow, composite-scoring formula, or statistical correlation analysis.
 
-This enabled comparisons between strategy descriptions from different periods.
-
-Historical website retrieval introduced additional challenges because archived pages are not uniformly available across firms or years.
-
-**Technical focus:** Historical data retrieval, longitudinal data collection, and temporal comparison.
-
-### Step 4: Longitudinal Content Analysis
-
-I examined how investment strategy descriptions changed across historical periods.
-
-This included comparing changes in strategic language and the prevalence of selected investment strategy terms.
-
-The goal was to structure qualitative website information so that strategic emphasis could be compared more systematically over time.
-
-This approach illustrates how computational tools can help researchers investigate questions that would otherwise require extensive manual review of historical documents.
-
-**Technical focus:** Text preprocessing, keyword-based comparison, and longitudinal content analysis.
+These distinctions matter because preparing occupational measurements and validating a research measure are separate tasks.
 
 ---
 
-## 5. My Specific Contributions
+## 3. Project B: Private Equity Strategy Evolution
 
-My primary responsibility was developing and implementing the computational workflow supporting the historical private equity strategy investigation.
+**Research mentors:** Professor Claudine Gartenberg and Elaine Pak  
+**Research period:** October 2025 – February 2026
 
-I independently worked on:
+### Research Question
 
-- Designing an algorithmic screening process to identify active PE firms with accessible websites.
-- Writing Python code to retrieve and extract investment strategy descriptions.
-- Using the Wayback Machine to examine historical website information.
-- Organizing collected text into structured data for comparison.
-- Comparing changes in strategic language across time periods.
+**How do private equity firms describe their investment strategies, and how might those descriptions change over time?**
 
-My mentors established the broader research direction and provided feedback during regular meetings.
+Private equity firms pursue different investment approaches, including:
 
-My contribution focused on computational implementation and data preparation rather than developing the paper's hypotheses, conducting its broader econometric analysis, or claiming authorship of its findings.
+- Operational improvements
+- Growth investments
+- Acquisition and consolidation strategies
+- Platform investments
+- Financial and organizational restructuring
+- Strategic transformation
+
+However, firms do not describe these approaches using consistent terminology.
+
+Some emphasize operational expertise, while others focus on sector specialization, growth, or financial structuring.
+
+These differences create a challenge for researchers seeking to compare investment strategies systematically.
+
+Historical comparisons are particularly difficult because corporate websites change, older pages disappear, and archived versions may be incomplete.
+
+### Research Objective
+
+My objective was to build a computational workflow that could:
+
+1. Identify candidate private equity firms with website information.
+2. Locate pages describing their investment approaches.
+3. Extract and organize strategy-related website text.
+4. Retrieve archived website information across historical periods.
+5. Identify strategy-related terminology for comparison.
+
+The goal was not to prove that website descriptions accurately represent investment behavior, but to investigate how this information could be structured for further empirical research.
 
 ---
 
-## 6. Technical Stack
+## 4. Python Implementation
 
-| Technology | Role in the Research Workflow |
-|---|---|
-| Python | Algorithm development and data processing |
-| Requests | HTTP requests and website retrieval |
-| Beautiful Soup | HTML parsing and text extraction |
-| lxml | HTML and XML parsing support |
-| Pandas | Data organization and manipulation |
-| NumPy | Numerical data processing |
-| OpenPyXL | Spreadsheet input and output |
-| tqdm | Progress tracking |
-| Internet Archive Wayback Machine | Historical website information |
-| GitHub | Version control and code documentation |
+I developed five scripts covering successive stages of the private equity research workflow.
 
-The Python dependencies are listed in `requirements.txt`.
+### Stage 1: Investor Screening
+
+**File:** `scripts/01_filter_investors.py`
+
+The first script screens investor records using three criteria:
+
+- The investor is not marked "Out of Business."
+- The primary investor classification is `PE/Buyout`.
+- A nonempty website field is available.
+
+The results are exported to a filtered CSV dataset.
+
+This is a rule-based screening process rather than independent verification that every retained firm is currently operating.
+
+**Technical methods:** Pandas filtering, missing-value handling, and CSV processing.
+
+### Stage 2: Website Discovery and Text Extraction
+
+**File:** `scripts/02_scrape_pe_strategies.py`
+
+This script retrieves firm websites and searches for descriptions of investment strategies.
+
+It performs the following operations:
+
+1. Reads website addresses from the filtered investor dataset.
+2. Sends HTTP requests and parses website HTML.
+3. Identifies internal links with relevant terms such as `strategy`, `approach`, `investment`, and `value-creation`.
+4. Examines the homepage and up to two selected internal pages.
+5. Extracts descriptive text from HTML elements.
+6. Scores text blocks using strategy-related keyword matches.
+7. Ranks the passages and retains selected text.
+8. Records source URLs alongside the extracted information.
+
+The scoring process looks for terms associated with investment strategies, including:
+
+- Operational improvement
+- Management
+- Value creation
+- Growth
+- Platform investments
+- Acquisition
+- Transformation
+- Governance
+- Efficiency
+
+The code selects up to five of the highest-scoring text blocks. When no blocks match the strategy keywords, it can fall back to other descriptive page content.
+
+This fallback improves text coverage but also creates a risk of collecting irrelevant information.
+
+**Technical methods:** Python, Requests, lxml, URL parsing, keyword scoring, and text ranking.
+
+### Stage 3: Historical Website Retrieval
+
+**File:** `scripts/03_wayback_scraper.py`
+
+A present-day website may not reflect how a firm described its strategy in earlier years.
+
+I developed a script that queries the Internet Archive's Wayback Machine CDX API for historical website snapshots.
+
+The code targets six years:
+
+**2015, 2017, 2019, 2021, 2023, and 2025.**
+
+For each firm and target year, it attempts to:
+
+1. Locate an archived webpage.
+2. Retrieve the archived HTML.
+3. Extract text from the webpage.
+4. Identify selected strategy-related keywords.
+5. Record the results in a structured dataset.
+
+The script distinguishes between periods where no snapshot is available and snapshots where no selected keywords are found.
+
+Historical availability depends on the Internet Archive and may differ across websites and periods.
+
+### Stage 4: Strategy-Term Aggregation
+
+**File:** `scripts/04_analyze_strategy_evolution.py`
+
+I also wrote code to organize keyword results across historical periods.
+
+The script reads the historical keyword dataset and produces aggregated counts for individual terms by year.
+
+This supports descriptive comparisons of strategy-related language.
+
+The current code requires additional missing-data handling to avoid counting certain missing-snapshot labels as if they were strategy keywords.
+
+Consequently, these aggregated counts should not be interpreted as validated historical findings without further checking.
+
+### Stage 5: Data Visualization
+
+**File:** `scripts/05_visualize_trends.py`
+
+The final script uses Pandas, Matplotlib, and Seaborn to create line charts showing strategy-term counts across periods.
+
+Selected terms include:
+
+- Leveraged buyout
+- Value creation
+- Digital transformation
+- Platform
+- Operational improvement
+
+The script is intended to make changes in selected terminology easier to inspect.
+
+The presence of the visualization code does not, by itself, establish that the full historical workflow produced complete or validated results.
 
 ---
 
-## 7. Repository Structure
+## 5. Pilot Results
+
+I tested the live website extraction workflow on a sample of 100 firm websites.
+
+| Measure | Pilot Result |
+|---|---:|
+| Target websites | 100 |
+| Websites with nonempty extracted text | 82 |
+| Websites without nonempty extracted text | 18 |
+| Nonempty extraction coverage | 82% |
+
+The corresponding output is available in:
+
+`data/processed/PE_Strategy_Implementation.csv`
+
+The output records firm website addresses, extracted text, and source pages.
+
+### Interpretation
+
+The 82% figure measures **nonempty text extraction**, not verified accuracy in identifying investment strategies.
+
+Some extracted passages contain material such as announcements, company news, or other website content rather than direct descriptions of investment philosophy.
+
+This pilot demonstrated that the workflow could retrieve text from many of the selected websites, but also highlighted the need for additional validation.
+
+The pilot was not designed to be a representative sample of all private equity firms.
+
+---
+
+## 6. Research Challenges and Limitations
+
+### Challenge 1: Finding Relevant Information
+
+Private equity websites are organized differently.
+
+Some firms maintain dedicated strategy pages. Others describe their investment approach through portfolio information, news releases, or general company descriptions.
+
+Keyword-based page discovery helped automate the search, but relevant information was not always located in predictable places.
+
+### Challenge 2: Keyword Matches Are Not Strategy Measurements
+
+A passage containing "growth," "platform," or "operational improvement" may appear relevant without actually describing a firm's investment approach.
+
+A keyword match is therefore not equivalent to an accurate strategy classification.
+
+This makes measurement validity an important limitation of the approach.
+
+### Challenge 3: Missing Historical Data
+
+The Wayback Machine does not preserve every website in every year.
+
+Missing snapshots can reflect incomplete archival coverage rather than a firm's actual absence or a change in its strategy.
+
+Historical comparisons must therefore account for uneven data availability.
+
+### Challenge 4: Changes in Language Versus Changes in Behavior
+
+A firm might change the language on its website because of branding, marketing, or communication priorities.
+
+Such changes do not necessarily indicate changes in its actual investment behavior.
+
+Website text may be a useful source of research data, but it requires careful interpretation and, where possible, independent validation.
+
+### Challenge 5: Reproducibility
+
+The code represents research-stage computational work rather than a fully packaged software application.
+
+The historical analysis scripts need additional validation and cleanup of missing-data labels.
+
+Some input files and dependencies also require configuration before the complete workflow can be reproduced.
+
+---
+
+## 7. What I Learned
+
+Both projects changed how I think about computational research.
+
+During the O*NET project, I worked on converting occupational information into comparable measurements.
+
+The challenge was not simply retrieving numerical ratings. It was understanding how those measurements related to what researchers actually wanted to study.
+
+I encountered a similar issue with private equity websites.
+
+At first, I focused on getting the scraper to retrieve information successfully. But finding text containing relevant keywords did not necessarily mean I had measured a firm's strategy correctly.
+
+I learned that **making code run and measuring something accurately are two different accomplishments.**
+
+Working with Elaine also helped me understand how investment strategies connect to organizational decisions, including the redeployment of talent across portfolio companies.
+
+These experiences strengthened my interest in applied mathematics, computational methods, and using quantitative analysis to study real-world problems.
+
+---
+
+## 8. Research Mentorship and Attribution
+
+My first research experience was under the guidance of **Professor Claudine Gartenberg** at Wharton.
+
+She helped frame the broader questions behind the job-description research and guided my work on occupational measurement.
+
+After that project, she introduced me to **Elaine Pak**, whose research investigates private equity ownership and firm strategy.
+
+Elaine explained the objectives of the private equity project and helped identify the information needed for comparing investment strategies.
+
+We met regularly to review progress, discuss data-quality problems, troubleshoot obstacles, and identify next steps.
+
+I independently developed the Python scripts documented in this repository.
+
+My contributions were focused on computational implementation, data preparation, website information extraction, and the development of tools for historical comparisons.
+
+The broader research questions and academic interpretation were guided by my mentors.
+
+I do not claim authorship of Elaine's academic paper, responsibility for its econometric analysis, or that the code presented here reproduces its findings.
+
+---
+
+## 9. Related Academic Research
+
+**Elaine Pak**
+
+*Owning With Style: How Corporate Owners Shape Firm Strategy*
+
+[Read the research paper](https://faculty.wharton.upenn.edu/wp-content/uploads/2026/05/ElainePak_JMP.pdf)
+
+Elaine's research investigates how private equity owners implement different strategic approaches, including through talent redeployment across portfolio companies.
+
+The paper provides academic context for the historical strategy-measurement questions associated with my project.
+
+My GitHub repository documents my computational work, not the complete research methods or results of Elaine's paper.
+
+---
+
+## 10. Repository Structure
 
 ```text
 pe-strategy-evolution-tracker/
-├── data/
-├── scripts/
-├── requirements.txt
-└── README.md
+|
+|-- README.md
+|-- requirements.txt
+|
+|-- scripts/
+|   |-- 01_filter_investors.py
+|   |-- 02_scrape_pe_strategies.py
+|   |-- 03_wayback_scraper.py
+|   |-- 04_analyze_strategy_evolution.py
+|   `-- 05_visualize_trends.py
+|
+|-- src/
+|   |-- __init__.py
+|   `-- data_processor.py
+|
+`-- data/
+    |-- Occupation Data.txt
+    |-- Skills.txt
+    |-- Abilities.txt
+    |-- Work Activities.txt
+    |-- Work Context.txt
+    |
+    |-- raw/
+    |   |-- investorAll.csv
+    |   `-- filtered_investors.csv
+    |
+    `-- processed/
+        |-- filtered_investors.csv
+        `-- PE_Strategy_Implementation.csv
 ```
 
-**`scripts/`**
+### Key Files
 
-Python scripts associated with the research workflow.
+| File | Purpose |
+|---|---|
+| `src/data_processor.py` | Processes and combines O*NET occupational ratings |
+| `scripts/01_filter_investors.py` | Screens PE/Buyout investor records |
+| `scripts/02_scrape_pe_strategies.py` | Discovers and extracts website strategy-related content |
+| `scripts/03_wayback_scraper.py` | Queries historical website snapshots |
+| `scripts/04_analyze_strategy_evolution.py` | Aggregates historical strategy keywords |
+| `scripts/05_visualize_trends.py` | Creates strategy-term visualizations |
+| `data/processed/PE_Strategy_Implementation.csv` | Existing live website extraction pilot output |
 
-**`data/`**
-
-Data files associated with the project.
-
-**`requirements.txt`**
-
-Python dependencies required by the project.
-
-**`README.md`**
-
-Research background, methodology, contribution summary, and technical documentation.
+The repository contains both research scripts and associated data files. Not all datasets shown in the directory are complete research outputs.
 
 ---
 
-## 8. Installation
+## 11. Installation and Usage
 
-Clone the repository:
+### Clone the Repository
 
 ```bash
 git clone https://github.com/kevichann/pe-strategy-evolution-tracker.git
 cd pe-strategy-evolution-tracker
 ```
 
-Create a Python virtual environment:
+### Create a Virtual Environment
 
 ```bash
 python -m venv .venv
-```
-
-On Windows:
-
-```bash
-.venv\Scripts\activate
 ```
 
 On macOS or Linux:
@@ -197,112 +436,89 @@ On macOS or Linux:
 source .venv/bin/activate
 ```
 
-Install the required dependencies:
+On Windows:
 
-```bash
-python -m pip install -r requirements.txt
+```powershell
+.venv\Scripts\activate
 ```
 
-### Running the Research Code
+### Install Dependencies
 
-The repository contains Python scripts in the `scripts/` directory.
+The current `requirements.txt` includes dependencies associated with the occupational-data work but does not yet list every library imported by the private equity scripts.
 
-Execution depends on the inputs and configuration expected by each script. The scripts should be reviewed individually to determine their execution order and required input files.
+For the published code, install the listed requirements and additional PE dependencies:
 
-The repository documents the research code and methodology rather than providing a packaged software application.
+```bash
+python -m pip install -r requirements.txt requests lxml matplotlib seaborn
+```
 
----
+### O*NET Data Processing
 
-## 9. Research Challenges and Methodological Limitations
+The O*NET processor currently expects its input files in the working directory.
 
-### Unstructured Website Information
+From the repository root on macOS or Linux:
 
-Unlike standardized financial databases, corporate websites are designed primarily to communicate information to investors and other audiences.
+```bash
+cd data
+python ../src/data_processor.py
+```
 
-Different firms use different terminology, website layouts, and levels of detail when describing investment strategies.
+The script reads the available occupational data files and writes `processed_onet_data.csv` into the working directory.
 
-This makes automated collection and comparison challenging.
+The code also references `Knowledge.txt`, which is not currently included in the repository. It handles missing input files by issuing a warning and continuing.
 
-### Historical Data Availability
+### Private Equity Website Scraping
 
-The Wayback Machine does not preserve every version of every website.
+The private equity scripts expect `filtered_investors.csv` in the current working directory.
 
-Archived pages may be missing for some periods, while other firms have more extensive historical records.
+A populated version is stored in `data/raw/`.
 
-Consequently, the availability of historical data may vary substantially across companies.
+From the repository root on macOS or Linux:
 
-### Selection and Survivorship Bias
+```bash
+cp data/raw/filtered_investors.csv filtered_investors.csv
+python scripts/02_scrape_pe_strategies.py
+```
 
-Firms with accessible websites and extensive archived histories may not be representative of all private equity firms.
+The scraper processes up to 100 website addresses and writes:
 
-This creates a potential source of selection bias when comparing investment strategies over time.
+`PE_Strategy_Implementation.csv`
 
-### Measurement Validity
+The original full investor input, `investorAll.csv`, is not available as a usable dataset in the current repository; its committed version is an empty placeholder.
 
-A firm's published investment strategy is not necessarily identical to its actual investment behavior.
+Therefore, reproducing the initial investor filtering requires a valid source dataset.
 
-Changes in website language may reflect marketing decisions, branding, or communication priorities rather than fundamental changes in investment activities.
+### Historical Analysis
 
-For this reason, website-based strategy measures require careful interpretation.
+The historical pipeline consists of:
 
-### Descriptive Versus Causal Analysis
+```bash
+python scripts/03_wayback_scraper.py
+python scripts/04_analyze_strategy_evolution.py
+python scripts/05_visualize_trends.py
+```
 
-This project focuses on collecting and comparing historical descriptions.
+These commands represent the intended processing order, not a guarantee that the complete workflow runs successfully without additional corrections.
 
-Observed differences in strategic language do not establish causal relationships between private equity ownership, investment strategies, or company outcomes.
+Historical retrieval depends on external archive availability and may take substantial time when processing a large firm list.
 
----
-
-## 10. What I Learned
-
-The most important lesson from this project was that collecting data and producing meaningful research findings are different challenges.
-
-Initially, the technical problem seemed straightforward: identify firms, retrieve their websites, and collect investment strategy descriptions.
-
-However, historical and unstructured data introduce questions that are not solved merely by writing working code.
-
-How should incomplete records be handled? Can descriptions written in different years be compared reliably? Does a change in terminology represent a meaningful change in strategy?
-
-I learned that computational research requires both technical implementation and careful consideration of what the data actually measure.
-
-Working with Elaine also helped me understand how private equity owners' strategic approaches can affect organizational decisions, including how employees are deployed across portfolio companies.
-
-This experience strengthened my interest in applied mathematics, computational modeling, and using quantitative methods to investigate real-world economic and organizational questions.
+The analysis script's missing-data handling also requires correction before its counts should be relied upon.
 
 ---
 
-## 11. Related Academic Research
+## 12. Project Scope
 
-**Elaine Pak**
+This repository records computational work from two Wharton research experiences.
 
-*Owning With Style: How Corporate Owners Shape Firm Strategy*
+It is intended to show my individual approach to data collection, processing, and measurement challenges.
 
-[Read Elaine Pak's Job Market Paper](https://faculty.wharton.upenn.edu/wp-content/uploads/2026/05/ElainePak_JMP.pdf)
+It is not a publication, a complete reproduction of my mentors' empirical research, or a validated commercial research system.
 
-Elaine's research examines how private equity owners implement distinct strategies, including through talent redeployment across portfolio companies.
-
-Her paper uses historical private equity website information to help characterize owners' strategic approaches.
-
-My project addresses closely related computational challenges involving historical website retrieval, strategy extraction, and the preparation of investment strategy data.
-
-The paper provides the broader academic context for my research experience. I do not claim authorship of the paper or its empirical findings.
-
----
-
-## 12. Project Scope and Attribution
-
-This repository documents my work on computational methods for investigating the evolution of private equity investment strategy descriptions.
-
-The broader academic research was conducted under the direction of my Wharton mentors.
-
-The code and documentation presented here should be understood as a record of my individual research contributions, not as a complete reproduction of Elaine Pak's empirical analysis.
-
-The project was an educational research experience and was not intended to be a commercial investment tool.
+The most important lesson across both projects was that **the usefulness of quantitative analysis depends not only on the code, but also on whether the underlying data represent what we intend to measure.**
 
 ---
 
 **Kevin Chan**  
 The Haverford School | Class of 2027  
-Student Researcher
-
-**Research Area:** Computational Analysis, Private Equity Strategy, Applied Data Science
+Student Researcher  
+Applied Mathematics and Computational Research
