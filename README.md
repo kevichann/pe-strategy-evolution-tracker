@@ -340,11 +340,11 @@ We met regularly to review progress, discuss data-quality problems, troubleshoot
 
 I independently developed the Python scripts documented in this repository.
 
-My contributions were focused on computational implementation, data preparation, website information extraction, and the development of tools for historical comparisons.
+My contributions were focused on assessing practicality and feasibility for further research. 
 
 The broader research questions and academic interpretation were guided by my mentors.
 
-I do not claim authorship of Elaine's academic paper, responsibility for its econometric analysis, or that the code presented here reproduces its findings.
+My work is simply a preliminary proof of concept for Elaine's work. I did not author her paper itself.
 
 ---
 
@@ -358,7 +358,7 @@ I do not claim authorship of Elaine's academic paper, responsibility for its eco
 
 Elaine's research investigates how private equity owners implement different strategic approaches, including through talent redeployment across portfolio companies.
 
-The paper provides academic context for the historical strategy-measurement questions associated with my project.
+The paper provides the subsequent academic work associated with my project.
 
 My GitHub repository documents my computational work, not the complete research methods or results of Elaine's paper.
 
