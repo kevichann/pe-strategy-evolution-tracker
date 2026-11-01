@@ -126,6 +126,10 @@ def main():
         print(f"Error: Could not find '{INPUT_FILE}'. Please run 01_filter_investors.py first.")
         return
 
+    if not domains:
+        print(f"Warning: '{INPUT_FILE}' contains no valid domains to process.")
+        return
+
     print(f"Starting historical analysis for {len(domains)} domains across target years: {TARGET_YEARS}...")
     results = []
 
